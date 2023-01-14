@@ -52,7 +52,6 @@ $(document).ready(function() {
 	} // end if
 
 
-
     
 }); 
 // jquery end
@@ -60,7 +59,7 @@ $(document).ready(function() {
 setTimeout(function(){
     $('#message').fadeOut('slow')
 }, 4000)
-console.log("hello")
+
 
 
 
