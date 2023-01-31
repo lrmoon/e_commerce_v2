@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from carts.models import CartItem
 from .forms import OrderForm
 import datetime
-from .models import Order, Payment
+from .models import Order, Payment, OrderProduct
 from django.views.decorators.csrf import csrf_protect
 import json
+from store.models import Product
 # Create your views here.
 @csrf_protect
 def payments(request):
@@ -25,7 +26,38 @@ def payments(request):
     order.payment = payment
     order.is_ordered = True
     order.save()
+    
+    #Move the cart items to order product table
+    cart_items = CartItem.objects.filter(user=request.user)
 
+    for item in cart_items:
+        orderproduct = OrderProduct()
+        orderproduct.order_id = order.id
+        orderproduct.payment = payment
+        orderproduct.user_id = request.user.id
+        orderproduct.product_id = item.product_id
+        orderproduct.quantity = item.quantity
+        orderproduct.product_price = item.product.price
+        orderproduct.ordered = True
+        orderproduct.save()
+
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variations.all()
+        orderproduct = OrderProduct.objects.get(id=orderproduct.id)
+        orderproduct.variations.set(product_variation)
+        orderproduct.save()
+
+    #reduce the quantity of the sold product
+    product = Product.objects.get(id=item.product_id)
+    product.stock -= item.quantity
+    product.save()
+
+
+    #clear cart
+
+    #send order recieved email to customer
+
+    #send order number and payment transaction id back to 
 
     return render(request, 'orders/payments.html')
 
