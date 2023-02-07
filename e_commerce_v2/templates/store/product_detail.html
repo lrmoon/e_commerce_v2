@@ -123,6 +123,8 @@
         <h3>Customer Reviews </h3>  
         
     </header>
+
+    {% for review in reviews %}
         <article class="box mb-3">
             <div class="icontext w-100">
                 <img src="{% static './images/avatars/avatar1.jpg'%}" class="img-xs icon rounded-circle">
@@ -140,7 +142,7 @@
                 </p>	
             </div>
         </article>
-    
+    {% endfor %}
         
     
         </div> <!-- col.// -->
