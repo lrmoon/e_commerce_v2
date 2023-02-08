@@ -118,12 +118,12 @@
             Review:
             <textarea name="review" rows="4" class="form-control"></textarea>
             <br>
-            {% if user.is_authenticated %}
-                {% if orderproduct %}
-                <input type="submit" value="Submit Review" class="btn btn-primary">
-                {% else %}
+            {% if user.is_authenticated and user_review%}
+                <input type="submit" value="Update Review" class="btn btn-primary">
+            {% elif user.is_authenticated and orderproduct %}
+            <input type="submit" value="Submit Review" class="btn btn-primary">
+            {% elif user.is_authenticated and not orderproduct %}
                   <p> You must purchase this product to post a review. <span></span></p>
-                {% endif %}
             {% else %}
             <p> You must be logged in to post a review. <span><a href="{% url 'login' %}"> Login now </a></span></p>
             {% endif %}

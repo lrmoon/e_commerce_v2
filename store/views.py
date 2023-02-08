@@ -48,6 +48,7 @@ def product_detail(request, category_slug, product_slug):
     if request.user.is_authenticated:
         try:
             orderproduct = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+            user_review = ReviewRating.objects.filter(user=request.user, product=single_product).exists()
         except OrderProduct.DoesNotExist:
             orderproduct = None
     else:
@@ -62,6 +63,7 @@ def product_detail(request, category_slug, product_slug):
         'in_cart': in_cart,
         'orderproduct': orderproduct,
         'reviews': reviews,
+        'user_review': user_review,
     }
     return render(request, 'store/product_detail.html', context)
 

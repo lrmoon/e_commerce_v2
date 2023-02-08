@@ -73,7 +73,7 @@ def payments(request):
         'transID': payment.payment_id,
     }
     return JsonResponse(data)
-    return render(request, 'orders/payments.html')
+    
 
 @csrf_protect
 def place_order(request, total=0, quantity=0):
@@ -88,6 +88,7 @@ def place_order(request, total=0, quantity=0):
 
     grand_total = 0
     tax = 0
+    
     for cart_item in cart_items:
         total += (cart_item.product.price * cart_item.quantity)
         quantity += cart_item.quantity
@@ -124,6 +125,7 @@ def place_order(request, total=0, quantity=0):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
+
             order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
             context = {
                 'order':order,
