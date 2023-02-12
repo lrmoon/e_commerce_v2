@@ -74,7 +74,7 @@ class UserProfile(models.Model):
     address_line_1 = models.CharField(blank=True, max_length=100)
     address_line_2 = models.CharField(blank=True, max_length=100)
     profile_picture = models.ImageField(
-        blank=True, upload_to='userprofile', default='images/avatars/default_avatar.jpeg')
+        blank=True, upload_to='userprofile', default='media/images/avatars/default_avatar.jpeg')
     city = models.CharField(blank=True, max_length=20)
     zip_code = models.CharField(blank=True, max_length=20)
     state = models.CharField(blank=True, max_length=20)
