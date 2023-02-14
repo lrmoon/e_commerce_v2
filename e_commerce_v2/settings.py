@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import environ
 import os
+
 env = environ.Env()
+
 environ.Env.read_env()
 
 from pathlib import Path
@@ -27,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", False))
 
 ALLOWED_HOSTS = []
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "admin_honeypot"
     
 
     
@@ -55,11 +58,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
 ]
 
 ROOT_URLCONF = "e_commerce_v2.urls"
@@ -92,7 +97,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / env('DATABASE'),
     }
 }
 
@@ -153,8 +158,9 @@ MESSAGE_TAGS = {
 
 #SMTP configuration
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'firefrogers@gmail.com'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = os.environ.get('EMAIL_PORT', '0')
+EMAIL_PORT_INT = int(EMAIL_PORT)
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('GMAIL_APP_PASSWORD')
-EMAIL_USE_TLS = True
+EMAIL_USE_TLS = bool(os.environ.get('EMAIL_USE_TLS', False))
