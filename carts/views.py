@@ -3,6 +3,7 @@ from store.models import Product, Variation
 from .models import Cart, CartItem
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
@@ -93,6 +94,11 @@ def add_cart(request, product_id):
         is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
         if is_cart_item_exists:
             cart_item = CartItem.objects.filter(product=product, cart=cart)
+            #handle out of stock product
+            if product.stock <= cart_item[0].quantity: 
+                messages.error(request, 'Out of stock')
+                return redirect('cart')
+            
             #existing_variations -> database
             #current_variation -> product_variation
             #item_id -> database
@@ -168,12 +174,23 @@ def cart(request, total=0, quantity=0, cart_items=None):
         grand_total = 0
         if request.user.is_authenticated:
             cart_items = CartItem.objects.filter(user=request.user, is_active=True)
+            for cart_item in cart_items:
+                product = Product.objects.get(pk=cart_item.product_id)
+                if product.stock < cart_item.quantity:
+                    cart_item.delete()
+                    return redirect('cart')
         else:
             cart = Cart.objects.get(cart_id=_cart_id(request))
             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
-            total += (cart_item.product.price * cart_item.quantity)
-            quantity += cart_item.quantity
+            #handle out of stock product
+            product = Product.objects.get(pk=cart_item.product_id)
+            if product.stock <= cart_item.quantity:
+                cart_item.delete()
+                return redirect('cart')
+            else:
+                total += (cart_item.product.price * cart_item.quantity)
+                quantity += cart_item.quantity
         tax = (2 * total)/100
         grand_total = total + tax
     except ObjectDoesNotExist:

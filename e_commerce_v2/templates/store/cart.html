@@ -58,10 +58,12 @@
                                     {% for item in cart_item.variations.all %}
                                     <input type="hidden" name="{{item.variation_category | lower }}" value="{{item.variation_value | capfirst }}">
                                     {% endfor %}
-                                    <button class="btn btn-light" type="submit" id="button-minus"><i class="fa fa-plus"></i> </button>
+                                    <button class="btn btn-light" type="submit" id="button-minus" {% if cart_item.product.stock <= cart_item.quantity %}disabled{% endif%}><i class="fa fa-plus"></i> </button>
                                     </form>
+
                                 </div>
                             </div> <!-- input-group.// -->
+                            <div style="position:absolute; width:300px;">{% include 'includes/alerts.html' %}</div>
                         </div> <!-- col.// -->
         </td>
         <td> 

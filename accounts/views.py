@@ -231,9 +231,12 @@ def resetPassword(request):
 
 def my_orders(request):
     orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at') #hyphen gives the results in decending order based on 'created_at'
-    
+    orders_count = orders.count()
+        
     context = {
         'orders': orders,
+        'orders_count': orders_count,
+
     }
     return render(request, 'accounts/my_orders.html', context)
 
@@ -292,7 +295,7 @@ def order_detail(request, order_id):
 
     for i in order_detail:
         subtotal += i.product_price * i.quantity
-
+    
     context = {
         'order_detail': order_detail,
         'order': order,
