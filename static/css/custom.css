@@ -56,3 +56,8 @@ ul.thumb li img{
     height: 80px;
     border: 1px solid grey;
 }
+
+body, html{
+    padding:0;
+    margin:0;
+}

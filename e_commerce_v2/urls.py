@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_')),
     path('', views.home, name='home'),
     path('themasterkey/', admin.site.urls),
     path('store/', include('store.urls')),
