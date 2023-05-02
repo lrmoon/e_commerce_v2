@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", False))
+DEBUG = True#bool(os.environ.get("DEBUG", False))
 
 ALLOWED_HOSTS = ['e-commerce-v2-env-2.eba-ewkbmz6p.us-east-1.elasticbeanstalk.com', '*']
 
@@ -156,10 +156,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "e_commerce_v2/static"),
-)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'static'
+STATICFILES_DIRS = [
+    'e_commerce_v2/static',
+]
+
 
 
 # Default primary key field type
