@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True#bool(os.environ.get("DEBUG", False))
 
-ALLOWED_HOSTS = ['e-commerce-v2-env-2.eba-ewkbmz6p.us-east-1.elasticbeanstalk.com', '*']
+ALLOWED_HOSTS = ['e-commerce-v2-env-deploy.eba-xdsjr5uh.us-east-1.elasticbeanstalk.com', '*']
 
 
 # Application definition
