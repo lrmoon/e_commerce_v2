@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True#bool(os.environ.get("DEBUG", False))
 
-ALLOWED_HOSTS = ['e-commerce-v2-env-deploy.eba-xdsjr5uh.us-east-1.elasticbeanstalk.com', '*']
+ALLOWED_HOSTS = ['django-greatkart-env.eba-kqjskt9h.us-east-1.elasticbeanstalk.com']
 
 
 # Application definition
@@ -145,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "EST"
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
