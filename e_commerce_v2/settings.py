@@ -10,13 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import environ
+env = environ.Env()
+environ.Env.read_env()
+from pathlib import Path
 import os
 
-env = environ.Env()
 
-environ.Env.read_env()
 
-from pathlib import Path
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,9 +32,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True#bool(os.environ.get("DEBUG", False))
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = env.bool('DEBUG', default=False)  # Much safer default!
 
-ALLOWED_HOSTS = ['django-greatkart-env.eba-kqjskt9h.us-east-1.elasticbeanstalk.com']
+# Add this crucial security setting
+if DEBUG:
+    # Development settings
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+else:
+    # Production settings
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 
 
 # Application definition
