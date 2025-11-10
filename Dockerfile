@@ -18,15 +18,12 @@ COPY --chown=app:app requirements.txt .
 # Install dependencies as root (necessary for system packages)
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    gcc python3-dev && \
+    libjpeg-dev zlib1g-dev libpng-dev && \
     pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
-    apt-get remove -y gcc python3-dev && \
-    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy application code as the non-root user
-COPY --chown=app:app . .
+# That's it! No need to remove the dependencies
 
 # Collect static files (adjust path if needed)
 RUN python manage.py collectstatic --noinput
