@@ -1,5 +1,6 @@
 # SPECIFIC version for stability & slim for security/size
-FROM python:3.11-slim-bullseye
+# Change your Dockerfile to use Python 3.9 instead of 3.11
+FROM python:3.9-slim-bullseye
 
 # Set environment variables for Python optimization
 ENV PYTHONUNBUFFERED=1 \
