@@ -17,7 +17,7 @@ django-admin-thumbnails==0.2.7
 django-environ==0.10.0
 django-ipware==5.0.0
 django-session-timeout==0.1.0
-docker==4.4.4
+docker==4.4.4 
 dockerpty==0.4.1
 docopt==0.6.2
 idna==2.10
