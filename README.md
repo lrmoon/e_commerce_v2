@@ -6,23 +6,22 @@ A production-ready, containerized application demonstrating modern DevSecOps pra
 
 - **Shift-Left Security:** Automated vulnerability scanning integrated into CI/CD pipeline.
 - **Infrastructure as Code (IaC):** Provisioning scripts for cloud infrastructure.
-- **Container Security:** Hardened Docker images and best-practice Kubernetes manifests.
-- **Secrets Management:** Pattern for handling sensitive data using [Vault/AWS Secrets Manager].
-- **CI/CD Pipeline:** Automated testing, security scanning, and deployment with GitHub Actions.
+- **Container Security:** Hardened Docker images and best-practice Kubernetes principles.
+- **Secrets Management:** Secure handling of sensitive data and API credentials.
+- **CI/CD Pipeline:** Automated testing and deployment with GitHub Actions.
 
 ## 🏗️ Architecture
 
-- **Frontend:** [Your tech, e.g., React/Next.js]
-- **Backend:** [Your tech, e.g., Django/Node.js]
+- **Frontend:** Javascript/HTML, Static Templates
+- **Backend:** Django
 - **Database:** PostgreSQL with encrypted connections
 - **Containerization:** Docker
 - **Orchestration:** Kubernetes principles
-- **Cloud:** AWS (EC2, S3, RDS, IAM)
-- **Authentication:** OAuth 2.0 implementation
+- **Cloud:** Digital Ocean & AWS (EC2, S3, RDS, IAM)
+- **Authentication:** Foundation for OAuth 2.0 implementation
 
 ## 📁 Key Components
 
-- `/kubernetes` - Orchestration manifests
 - `/.github/workflows` - CI/CD pipeline definitions
 - `/docker` - Containerization files
 - `/scripts` - Infrastructure automation
