@@ -15,12 +15,15 @@ WORKDIR /app
 # Copy ONLY requirements first for optimal Docker layer caching
 COPY --chown=app:app requirements.txt .
 
-# Install dependencies as root (necessary for system packages)
+# Install dependencies as root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    libjpeg-dev zlib1g-dev libpng-dev && \
+    gcc python3-dev libjpeg-dev zlib1g-dev libpng-dev && \
     pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt && \
+    # ONLY remove python3-dev, keep gcc and image libraries!
+    apt-get remove -y python3-dev && \
+    apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # That's it! No need to remove the dependencies
